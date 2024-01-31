@@ -13,13 +13,18 @@ public class GravityHandler : MonoBehaviour
     public static List<Rigidbody2D> attractees = new List<Rigidbody2D>();
     [SerializeField]
     public static bool isSimulatingLive = true;
-    void FixedUpdate()
+    private void Start()
     {
         G = g;//in case g is changed in editor
         D = distanceMin;
-        if (isSimulatingLive)//PathHandler changes this
-            SimulateGravities();
     }
+    void FixedUpdate()
+    {
+        if (isSimulatingLive)//PathHandler changes this
+            //SimulateGravities();
+            StartCoroutine(SimulateGravities1());
+    }
+
     public static void SimulateGravities()
     {
         foreach (Rigidbody2D attractor in attractors)
@@ -32,7 +37,19 @@ public class GravityHandler : MonoBehaviour
         }
     }
 
-    public static void AddGravityForce(Rigidbody2D attractor, Rigidbody2D target,float _distanceMin)
+    IEnumerator SimulateGravities1()
+    {
+        foreach (Rigidbody2D attractor in attractors)
+        {
+            foreach (Rigidbody2D attractee in attractees)
+            {
+                if (attractor != attractee)
+                    AddGravityForce(attractor, attractee, D);
+            }
+        }
+        yield return new WaitForFixedUpdate();
+    }
+    public static void AddGravityForce(Rigidbody2D attractor, Rigidbody2D target, float _distanceMin)
     {
         float massProduct = attractor.mass * target.mass * G;
 

@@ -42,7 +42,7 @@ public class PathHandler : MonoBehaviour
         int simulationSteps = 500;
         for(int i = 1; i<simulationSteps; i++)
         {
-            GravityHandler.SimulateGravities();
+            //GravityHandler.SimulateGravities();
             Physics2D.Simulate(Time.fixedDeltaTime);
             pathPoints.Add(cloneRigidBody.transform.position);
         }

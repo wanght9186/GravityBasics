@@ -14,12 +14,12 @@ public class Graviton : MonoBehaviour
         }
         set
         {
-            if(value==true)
+            if (value == true)
             {
-                if(!GravityHandler.attractors.Contains(this.GetComponent<Rigidbody2D>()))
-                GravityHandler.attractors.Add(rigidBody);
+                if (!GravityHandler.attractors.Contains(this.GetComponent<Rigidbody2D>()))
+                    GravityHandler.attractors.Add(rigidBody);
             }
-            else if(value==false)
+            else if (value == false)
             {
                 GravityHandler.attractors.Remove(rigidBody);
             }
@@ -35,15 +35,15 @@ public class Graviton : MonoBehaviour
         }
         set
         {
-            if(value==true)
+            if (value == true)
             {
-                if(!GravityHandler.attractees.Contains(this.GetComponent<Rigidbody2D>()))
+                if (!GravityHandler.attractees.Contains(this.GetComponent<Rigidbody2D>()))
                 {
                     GravityHandler.attractees.Add(rigidBody);
                 }
-                
+
             }
-            else if(value==false)
+            else if (value == false)
             {
                 GravityHandler.attractees.Remove(rigidBody);
             }
@@ -56,6 +56,8 @@ public class Graviton : MonoBehaviour
     void Awake()
     {
         rigidBody = this.GetComponent<Rigidbody2D>();
+        rigidBody.mass = Random.Range(5, 100);
+        rigidBody.drag = Random.Range(5, 10);
     }
     void OnEnable()
     {
@@ -65,11 +67,10 @@ public class Graviton : MonoBehaviour
     void Start()
     {
         //initialVelocity = new Vector3(Random.Range(-10,10), Random.Range(-10,10), 0);
-        if(applyInitialVelocityOnStart)
+        if (applyInitialVelocityOnStart)
         {
             ApplyVelocity(initialVelocity);
         }
-            
     }
     void OnDisable()
     {
@@ -78,6 +79,6 @@ public class Graviton : MonoBehaviour
     }
     void ApplyVelocity(Vector3 velocity)
     {
-        rigidBody.AddForce(initialVelocity,ForceMode2D.Impulse);
+        rigidBody.AddForce(initialVelocity, ForceMode2D.Impulse);
     }
 }
