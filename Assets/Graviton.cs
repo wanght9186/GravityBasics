@@ -5,6 +5,28 @@ using UnityEngine;
 public class Graviton : MonoBehaviour
 {
     Rigidbody2D rigidBody;
+    [SerializeField] bool isAttractor;//field
+    public bool IsAttractor//property
+    {
+        get
+        {
+            return isAttractor;
+        }
+        set
+        {
+            if(value==true)
+            {
+                if(!GravityHandler.attractors.Contains(this.GetComponent<Rigidbody2D>()))
+                GravityHandler.attractors.Add(rigidBody);
+            }
+            else if(value==false)
+            {
+                GravityHandler.attractors.Remove(rigidBody);
+            }
+            isAttractor = value;
+        }
+    }
+    [SerializeField] bool isAttractee;//field
     public bool IsAttractee//property 
     {
         get
@@ -28,28 +50,6 @@ public class Graviton : MonoBehaviour
             isAttractee = value;
         }
     }
-    public bool IsAttractor//property
-    {
-        get
-        {
-            return isAttractor;
-        }
-        set
-        {
-            if(value==true)
-            {
-                if(!GravityHandler.attractors.Contains(this.GetComponent<Rigidbody2D>()))
-                GravityHandler.attractors.Add(rigidBody);
-            }
-            else if(value==false)
-            {
-                GravityHandler.attractors.Remove(rigidBody);
-            }
-            isAttractor = value;
-        }
-    }
-    [SerializeField] bool isAttractor;//field
-    [SerializeField] bool isAttractee;//field
 
     [SerializeField] Vector3 initialVelocity;
     [SerializeField] bool applyInitialVelocityOnStart;

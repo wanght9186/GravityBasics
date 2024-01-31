@@ -11,7 +11,7 @@ public class GridController : MonoBehaviour
     [SerializeField] Rigidbody2D target;
     void Start()
     {
-        GravityHandler.AddGravityForce(attractor,target);
+        GravityHandler.AddGravityForce(attractor,target,1f);
         Debug.Log(target.velocity.magnitude);
         Vector3 test = new Vector3(-5,-3,0);
         Debug.Log(test.normalized);
